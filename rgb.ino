@@ -1,22 +1,28 @@
-const int ldrPin = A1;  // Pino analógico conectado ao LDR
+#define t 40
+#define t1 40
+#define t2 40
+#define t3 40
 
-#define t 20
-#define t1 10
-#define t2 50
-#define t3 25
+const int ldrPin = 4; // D18 - Pino do LDR
+int ldrValue = 0; // Valor do LDR
+
+
 
 void setup() {
-    pinMode(ldrPin, INPUT);
+    // Configura as portas D15, D2, D4 e D5 como saídas
+    pinMode(ldrPin, INPUT); // Configura o pino do LDR como entrada
+    Serial.begin(9600); // Inicia a comunicação serial
 
-    // set up pins  7 to 10 as outputs
-    for (int i = 7; i <= 10; i++) {
-        pinMode(i, OUTPUT);
-    }
+    pinMode(15, OUTPUT);
+    pinMode(2, OUTPUT);
+    pinMode(18, OUTPUT);
+    pinMode(5, OUTPUT);
 }
-/////////////////////////////////////////////////////////////////////////////////Effect 1
+
 void loop(){
-    int lightValue = analogRead(ldrPin);
-    if (lightValue < 500) {
+    ldrValue = analogRead(ldrPin); // Lê o valor do LDR
+    
+    if (ldrValue < 500) {
         effect_1();
         effect_1();
 
@@ -43,270 +49,177 @@ void loop(){
 //left to right and right to left
 void effect_1()
 {
-for(int i=7; i<11; i++){
-digitalWrite(i, HIGH);
-delay(t1);
-digitalWrite(i+1, HIGH);
-delay(t1);
-digitalWrite(i+2, HIGH);
-delay(t1);
-digitalWrite(i, LOW);
-delay(t1);
-digitalWrite(i+1, LOW);
-delay(t1);
+    for(int i=15; i<=2; i-=2){
+        analogWrite(i, 255); // Define o brilho máximo (255) usando PWM
+        delay(t1);
+        analogWrite(i-1, 255);
+        delay(t1);
+        analogWrite(i-2, 255);
+        delay(t1);
+        analogWrite(i, 0); // Desliga o LED
+        delay(t1);
+        analogWrite(i-1, 0);
+        delay(t1);
+    }
+    for(int i=2; i<=15; i+=2){
+        analogWrite(i, 255);
+        delay(t1);
+        analogWrite(i-1, 255);
+        delay(t1);
+        analogWrite(i-2, 255);
+        delay(t1);
+        analogWrite(i, 0);
+        delay(t1);
+        analogWrite(i-1, 0);
+        delay(t1);
+    }
 }
-for(int i=10; i>6; i--){
-digitalWrite(i, HIGH);
-delay(t1);
-digitalWrite(i-1, HIGH);
-delay(t1);
-digitalWrite(i-2, HIGH);
-delay(t1);
-digitalWrite(i, LOW);
-delay(t1);
-digitalWrite(i-1, LOW);
-delay(t1);
-}
-}
-/////////////////////////////////////////////////////////////////////////////////Effect 2
+
 void effect_2()
 {
-int count = 10; // keeps track of second LED movement
+    int count = 15; // keeps track of second LED movement
 
-// move first LED from left to right and second from right to left
-for (int i = 7; i < 11; i++) {
-clear();
-digitalWrite(i, HIGH); // chaser 1
-digitalWrite(count, HIGH); // chaser 2
-count--;
-// stop LEDs from appearing to stand still in the middle
-if (count != 7) {
-delay(t2);
-}
-}
+    // move first LED from left to right and second from right to left
+    for (int i = 15; i >= 2; i--) {
+        clear();
+        analogWrite(i, 255); // Define o brilho máximo (255) usando PWM
+        analogWrite(count, 255); // Define o brilho máximo (255) usando PWM
+        count--;
+        // stop LEDs from appearing to stand still in the middle
+        if (count != 2) {
+            delay(t2);
+        }
+    }
 
-// move first LED from right to left and second LED from left to right
-for (int i = 10; i > 7; i--) {
-clear();
-digitalWrite(i, HIGH); // chaser 1
-digitalWrite(count, HIGH); // chaser 2
-count++;
-// stop LEDs from appearing to stand still in the middle
-if (count != 8) {
-delay(t2);
+    // move first LED from right to left and second LED from left to right
+    for (int i = 2; i <= 15; i++) {
+        clear();
+        analogWrite(i, 255); // Define o brilho máximo (255) usando PWM
+        analogWrite(count, 255); // Define o brilho máximo (255) usando PWM
+        count++;
+        // stop LEDs from appearing to stand still in the middle
+        if (count != 15) {
+            delay(t2);
+        }
+    }
 }
-}
-}
-
-////////////////////////////////////////////////////////////////////////////////Effect 3
 
 void effect_3()
 {
-for(int i=7; i<11; i++){
-digitalWrite(i, HIGH);
-delay(t3);
-}
-for(int i=7; i<11; i++){
-digitalWrite(i, LOW);
-delay(t3);
+    for(int i=15; i>=2; i--){
+        analogWrite(i, 255); // Define o brilho máximo (255) usando PWM
+        delay(t3);
+    }
+    for(int i=15; i>=2; i--){
+        analogWrite(i, 0);
+        delay(t3);
+    }
+
+    for(int i = 2; i<=15; i++){
+        analogWrite(i, 255); // Define o brilho máximo (255) usando PWM
+        delay(t3);
+    }
+    for(int i = 2; i<=15; i++){
+        analogWrite(i, 0);
+        delay(t3);
+    }
 }
 
-
-for(int i = 10; i>=7; i--){
-digitalWrite(i, HIGH);
-delay(t3);
-}
-for(int i = 10; i>=7; i--){
-digitalWrite(i, LOW);
-delay(t3);
-}
-}
-///////////////////////////////////////////////////////////////////////////Effect 4
 void effect_4()
 {
-for(int j = 7; j <= 10; j++){
-digitalWrite(j, HIGH);
-delay(t2);
-j=j+1;
-}
-for(int j = 7; j <= 10; j++){
-digitalWrite(j, LOW);
-delay(t2);
+    for(int j = 15; j >= 2; j--){
+        analogWrite(j, 255); // Define o brilho máximo (255) usando PWM
+        delay(t2);
+    }
+    for(int j = 15; j >= 2; j--){
+        analogWrite(j, 0);
+        delay(t2);
+    }
+
+    for(int k = 2; k <= 15; k++){
+        analogWrite(k, 255); // Define o brilho máximo (255) usando PWM
+        delay(t2);
+    }
+    for(int k = 2; k <= 15; k++){
+        analogWrite(k, 0);
+        delay(t2);
+    }
 }
 
-for(int k = 10; k > 10; k--){
-digitalWrite(k, HIGH);
-delay(t2);
-k=k-1;
-}
-for(int k = 10; k > 7; k--){
-digitalWrite(k, LOW);
-delay(t2);
-}
-}
-//////////////////////////////////////////////////////////////////////////////Effect 5
 void effect_5()
 {
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin, HIGH);
-delay(t1);
-digitalWrite(pin+1, LOW);
-delay(t1);
+    for(int pin = 15; pin >= 2; pin--)
+    {
+        analogWrite(pin, 255); // Define o brilho máximo (255) usando PWM
+        delay(t1);
+        analogWrite(pin+1, 0);
+        delay(t1);
+    }
+    for(int pin = 15; pin >= 2; pin--)
+    {
+        analogWrite(pin+1, 255); // Define o brilho máximo (255) usando PWM
+        delay(t1);
+        analogWrite(pin+2, 0);
+        delay(t1);
+    }
+    for(int pin = 15; pin >= 2; pin--)
+    {
+        analogWrite(pin+2, 255); // Define o brilho máximo (255) usando PWM
+        delay(t1);
+        analogWrite(pin+3, 0);
+        delay(t1);
+    }
+    for(int pin = 15; pin >= 2; pin--)
+    {
+        analogWrite(pin+3, 255); // Define o brilho máximo (255) usando PWM
+        delay(t1);
+        analogWrite(pin+4, 0);
+        delay(t1);
+    }
 }
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+1, HIGH);
-delay(t1);
-digitalWrite(pin+2, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+2, HIGH);
-delay(t1);
-digitalWrite(pin+3, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+3, HIGH);
-delay(t1);
-digitalWrite(pin+4, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+4, HIGH);
-delay(t1);
-digitalWrite(pin+5, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+5, HIGH);
-delay(t1);
-digitalWrite(pin+6, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+6, HIGH);
-delay(t1);
-digitalWrite(pin+7, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+7, HIGH);
-delay(t1);
-digitalWrite(pin+8, LOW);
-delay(t1);
-}
-for(int pin = 9; pin >= 7; pin--)
-{
-digitalWrite(pin+8, HIGH);
-delay(t1);
-digitalWrite(pin+9, LOW);
-delay(t1);
-}
-for(int pin = 9; pin >= 7; pin--)
-{
-digitalWrite(pin+9, HIGH);
-delay(t1);
-digitalWrite(pin+10, LOW);
-delay(t1);
-}
-for(int pin = 9; pin >= 7; pin--)
-{
-digitalWrite(pin+10, HIGH);
-delay(t1);
-digitalWrite(pin+11, LOW);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin+11, HIGH);
-delay(t1);
-}
-for(int pin = 10; pin >= 7; pin--)
-{
-digitalWrite(pin, LOW);
-delay(t1);
-}
-}
-/////////////////////////////////////////////////////////////////////////////Effect 6
+
 void effect_6()
 {
-for(int j=7; j<10; j++){
-digitalWrite(j, LOW);
-delay(t);
-digitalWrite(j, HIGH);
-delay(t);
-digitalWrite(j-2, LOW);
-delay(t);
-digitalWrite(j, HIGH);
+    for(int j=15; j>=4; j--){
+        analogWrite(j, 0);
+        delay(t);
+        analogWrite(j, 255); // Define o brilho máximo (255) usando PWM
+        delay(t);
+        analogWrite(j-2, 0);
+        delay(t);
+        analogWrite(j, 255); // Define o brilho máximo (255) usando PWM
+    }
+    for(int k = 2; k<=15; k++){
+        analogWrite(k, 0);
+        delay(t);
+        analogWrite(k, 255); // Define o brilho máximo (255) usando PWM
+        delay(t);
+        analogWrite(k+2, 0);
+        delay(t);
+        analogWrite(k, 255); // Define o brilho máximo (255) usando PWM
+    }
 }
-for(int k = 10; k>7; k--){
-digitalWrite(k, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-delay(t);
-digitalWrite(k+2, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-}
-for(int k = 7; k<10; k++){
-digitalWrite(k, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-delay(t);
-digitalWrite(k-2, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-}
-for(int k = 10; k>7; k--){
-digitalWrite(k, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-delay(t);
-digitalWrite(k+4, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-}
-for(int k = 7; k<10; k++){
-digitalWrite(k, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-delay(t);
-digitalWrite(k-4, LOW);
-delay(t);
-digitalWrite(k, HIGH);
-}
-}
-///////////////////////////////////////////////////////////////////////////////////Effect 7
+
 void effect_7()
 {
-for(int j=7; j<10; j++){
-digitalWrite(j, HIGH);
-delay(t);
-digitalWrite(j+2, LOW);
-delay(t);
-}
-for(int k = 10; k>7; k--){
-digitalWrite(k, HIGH);
-delay(t);
-digitalWrite(k+2, LOW);
-delay(t);
-}
+    for(int j=15; j>=4; j--){
+        analogWrite(j, 255); // Define o brilho máximo (255) usando PWM
+        delay(t);
+        analogWrite(j-2, 0);
+        delay(t);
+    }
+    for(int k = 2; k<=15; k++){
+        analogWrite(k, 255); // Define o brilho máximo (255) usando PWM
+        delay(t);
+        analogWrite(k+2, 0);
+        delay(t);
+    }
 }
 
-// function to switch all LEDs off
+// função para desligar todos os LEDs
 void clear(void)
 {
-for (int i = 2; i <= 13; i++) {
-digitalWrite(i, LOW);
+    for (int i = 2; i <= 15; i++) {
+        analogWrite(i, 0);
+    }
 }
-}
-
-
