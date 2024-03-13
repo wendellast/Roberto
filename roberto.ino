@@ -10,30 +10,29 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-unsigned long millisTarefa1 = millis(); 
+unsigned long millisTarefa1 = millis();
 int counter = 0;
-int tempo = 100;  //variável usada para definir o tempo de acionamento do buzzer
+int tempo = 100; // variável usada para definir o tempo de acionamento do buzzer
 int frequencia = 0;
 int temp = 250;
 
-int xz = 0;         // Random Music
-int buzzerPin = 9;  
-int speakPin = 9;   
+int xz = 0; // Random Music
+int buzzerPin = 9;
+int speakPin = 9;
 int botaoPin = 8;
 
-
 byte smiley[8] = {
-  B00000,
-  B10001,
-  B00000,
-  B00000,
-  B10001,
-  B01110,
-  B00000,
+    B00000,
+    B10001,
+    B00000,
+    B00000,
+    B10001,
+    B01110,
+    B00000,
 };
 
-
-void setup() {
+void setup()
+{
   lcd.begin(16, 2);
   dht.begin();
   lcd.createChar(0, smiley);
@@ -42,8 +41,10 @@ void setup() {
   pinMode(botaoPin, INPUT);
 }
 
-void loop() {
- if (digitalRead(botaoPin) == HIGH) {
+void loop()
+{
+  if (digitalRead(botaoPin) == HIGH)
+  {
     // Se o botão foi pressionado, ativa o buzzer
     music();
   }
@@ -51,14 +52,13 @@ void loop() {
   int hours = hour();
   int minutes = minute();
 
-  int humi = (int)dht.readHumidity(); 
-  int temper = (int)dht.readTemperature(); 
+  int humi = (int)dht.readHumidity();
+  int temper = (int)dht.readTemperature();
 
-  
   static bool showSmiley = true;
   showSmiley = !showSmiley;
-  
-  lcd.clear(); 
+
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("T: ");
   lcd.print(temper);
@@ -70,50 +70,52 @@ void loop() {
   lcd.print(" %");
 
   lcd.setCursor(10, 0);
-  if (hours < 10) {
+  if (hours < 10)
+  {
     lcd.print("0"); // Adiciona um zero à esquerda, se a hora for menor que 10
   }
   lcd.print(hours);
   lcd.print(":");
-  if (minutes < 10) {
+  if (minutes < 10)
+  {
     lcd.print("0"); // Adiciona um zero à esquerda, se os minutos forem menores que 10
   }
   lcd.print(minutes);
 
   // Exibe ou oculta o rostinho
-  if (showSmiley) {
+  if (showSmiley)
+  {
     lcd.setCursor(14, 1); // Posição para o rostinho
-    lcd.write(byte(0)); // Escreve o rostinho personalizado
+    lcd.write(byte(0));   // Escreve o rostinho personalizado
   }
 
   delay(500); // Aguarda 500 milissegundos
 }
 
-
-void beep(int note, int duration) {
-  //Play tone on buzzerPin
+void beep(int note, int duration)
+{
+  // Play tone on buzzerPin
   tone(buzzerPin, note, duration);
 
-  //Stop tone on buzzerPin
+  // Stop tone on buzzerPin
   noTone(buzzerPin);
 
   delay(50);
 
-  //Increment counter
+  // Increment counter
   counter++;
 }
 
-
-
-
-void beep(int speakerPin, float noteFrequency, long noteDuration) {
+void beep(int speakerPin, float noteFrequency, long noteDuration)
+{
   int x;
 
   float microsecondsPerWave = 1000000 / noteFrequency;
   float millisecondsPerCycle = 1000 / (microsecondsPerWave * 2);
   float loopTime = noteDuration * millisecondsPerCycle;
 
-  for (x = 0; x < loopTime; x++) {
+  for (x = 0; x < loopTime; x++)
+  {
     digitalWrite(speakerPin, HIGH);
     delayMicroseconds(microsecondsPerWave);
     digitalWrite(speakerPin, LOW);
@@ -121,45 +123,50 @@ void beep(int speakerPin, float noteFrequency, long noteDuration) {
   }
 }
 
-void music() {
+void music()
+{
 
-  xz = random(1, 5);  // Vai de 0 a 4
+  xz = random(1, 5); // Vai de 0 a 4
   Serial.println(xz);
 
-  if (xz == 1) {                    // Musica robot
-    beep(buzzerPin, note_A7, 100);  //A
-    beep(buzzerPin, note_G7, 100);  //G
-    beep(buzzerPin, note_E7, 100);  //E
-    beep(buzzerPin, note_C7, 100);  //C
-    beep(buzzerPin, note_D7, 100);  //D
-    beep(buzzerPin, note_B7, 100);  //B
-    beep(buzzerPin, note_F7, 100);  //F
-    beep(buzzerPin, note_C8, 100);  //C
-    beep(buzzerPin, note_A7, 100);  //A
-    beep(buzzerPin, note_G7, 100);  //G
-    beep(buzzerPin, note_E7, 100);  //E
-    beep(buzzerPin, note_C7, 100);  //C
-    beep(buzzerPin, note_D7, 100);  //D
-    beep(buzzerPin, note_B7, 100);  //B
-    beep(buzzerPin, note_F7, 100);  //F
-    beep(buzzerPin, note_C8, 100);  //C
+  if (xz == 1)
+  {                                // Musica robot
+    beep(buzzerPin, note_A7, 100); // A
+    beep(buzzerPin, note_G7, 100); // G
+    beep(buzzerPin, note_E7, 100); // E
+    beep(buzzerPin, note_C7, 100); // C
+    beep(buzzerPin, note_D7, 100); // D
+    beep(buzzerPin, note_B7, 100); // B
+    beep(buzzerPin, note_F7, 100); // F
+    beep(buzzerPin, note_C8, 100); // C
+    beep(buzzerPin, note_A7, 100); // A
+    beep(buzzerPin, note_G7, 100); // G
+    beep(buzzerPin, note_E7, 100); // E
+    beep(buzzerPin, note_C7, 100); // C
+    beep(buzzerPin, note_D7, 100); // D
+    beep(buzzerPin, note_B7, 100); // B
+    beep(buzzerPin, note_F7, 100); // F
+    beep(buzzerPin, note_C8, 100); // C
   }
 
-  else if (xz == 2) {                                             // Sireni
-    for (frequencia = 150; frequencia < 1800; frequencia += 1) {  //Define frequencia igual a 150; verifica se frequencia é menor que 1800; realiza a soma frequencia = frequencia + 1
-      
-      tone(buzzerPin, frequencia, tempo);                         //Aciona o led com frequência definida pelo for e tempo igual a 100 milissegundos
-      delay(1);                                                   //delay de 1 milissegundos
+  else if (xz == 2)
+  { // Sireni
+    for (frequencia = 150; frequencia < 1800; frequencia += 1)
+    { // Define frequencia igual a 150; verifica se frequencia é menor que 1800; realiza a soma frequencia = frequencia + 1
+
+      tone(buzzerPin, frequencia, tempo); // Aciona o led com frequência definida pelo for e tempo igual a 100 milissegundos
+      delay(1);                           // delay de 1 milissegundos
     }
-    for (frequencia = 1800; frequencia > 150; frequencia -= 1) {  //Define frequencia igual a 1800; verifica se frequencia é maior que 150; realiza a subtração frequencia = frequencia - 1
-      
-      tone(buzzerPin, frequencia, tempo);                         //Aciona o led com frequência definida pelo for e tempo igual a 100 milissegundos
-      delay(1);                                                   //delay de 1 milissegundos
+    for (frequencia = 1800; frequencia > 150; frequencia -= 1)
+    { // Define frequencia igual a 1800; verifica se frequencia é maior que 150; realiza a subtração frequencia = frequencia - 1
+
+      tone(buzzerPin, frequencia, tempo); // Aciona o led com frequência definida pelo for e tempo igual a 100 milissegundos
+      delay(1);                           // delay de 1 milissegundos
     }
   }
 
-
-  else if (xz == 3) {  // Musica JOJO
+  else if (xz == 3)
+  { // Musica JOJO
     tone(speakPin, f5s);
     delay(Qnote + Enote);
     noTone(speakPin);
@@ -366,7 +373,8 @@ void music() {
     delay(25);
   }
 
-  else if (xz == 4) {  // Music Mortal kobat
+  else if (xz == 4)
+  { // Music Mortal kobat
     firstSection();
     firstSection();
     secondSection();
@@ -375,8 +383,8 @@ void music() {
   }
 }
 
-
-void firstSection() {
+void firstSection()
+{
   beep(AA3, 200);
   beep(AA3, 200);
   beep(C4, 200);
@@ -410,7 +418,8 @@ void firstSection() {
   beep(C4, 200);
   beep(B3, 200);
 }
-void secondSection() {
+void secondSection()
+{
   beep(AA3, 325);
   beep(AA3, 325);
   beep(AA3, 325);
@@ -437,7 +446,8 @@ void secondSection() {
   beep(AA3, 450);
 }
 
-void thirdSection() {
+void thirdSection()
+{
   beep(AA3, 75);
   beep(E4, 200);
   beep(AA3, 75);
