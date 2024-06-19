@@ -6,7 +6,7 @@
     <title>Controlar LED</title>
     <script>
         function sendRequest(action) {
-            fetch(`/control?action=${action}`)
+            fetch(`/api/v1/control?action=${action}`)
                 .then(response => response.text())
                 .then(data => console.log(data))
                 .catch(error => console.error('Error:', error));
