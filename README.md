@@ -1,17 +1,33 @@
-# Hello Robot
+# Bem-vindo ao Roberto! 
 
-## Roberto
+# Introdução
+Este é o guia para congiguração iot pc "Roberto", aqui tem as configurações e como o sistema está funcionando
 
-Roberto is my computer friend
 
-## Imagem
 
-![Descrição da imagem 1](assert/img/imagem6.jpg)
-![Descrição da imagem 1](assert/img/imagem5.jpeg)
-![Descrição da imagem 1](assert/img/imagem4.jpeg)
-![Descrição da imagem 1](assert/img/imagem3.jpeg)
 
-## Video
+## Tecnologias Utilizadas
+* Go
+* C++
+* Arduino
 
-[![Texto alternativo para o vídeo](assert/img/imagem2.mp4)]()
+
+## Screenshots
+| dash |
+| --- |
+| <img src="static/assets/img/imagem6.jpg" /> |
+
+<br/>
+
+| frente |
+| --- |
+| <img src="static/assets/img/imagem5.jpeg" /> |
+
+<br/>
+
+| painel |
+| --- |
+| <img src="static/assets/img/imagem4.jpeg" /> |
+
+<br/>
 
