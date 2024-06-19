@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlar LED</title>
+    <script>
+        function sendRequest(action) {
+            fetch(`/control?action=${action}`)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Controlar LED</h1>
+    <button onclick="sendRequest('on')">Ligar LED</button>
+    <button onclick="sendRequest('off')">Desligar LED</button>
+</body>
+</html>
