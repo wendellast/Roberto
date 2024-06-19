@@ -12,7 +12,7 @@ func main() {
 	err := config.Init()
 
 	if err != nil {
-		fmt.Errorf("config initializer erro: %v", err)
+		fmt.Printf("config initializer erro: %v\n", err)
 		return
 	}
 
