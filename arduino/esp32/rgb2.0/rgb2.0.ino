@@ -1,4 +1,4 @@
-#define LIGHT_SENSOR_PIN 4 // ESP32 pin GIOP36 (ADC0)
+#define LIGHT_SENSOR_PIN 4  // ESP32 pin GIOP36 (ADC0)
 
 int led0 = 2;
 int led1 = 18;
@@ -32,83 +32,98 @@ void setup() {
   pinMode(led11, OUTPUT);
   pinMode(led12, OUTPUT);
   pinMode(led13, OUTPUT);
-  
-  Serial.begin(9600);
+
+  Serial.begin(115200);
 }
 
 void loop() {
+
   int analogValue = analogRead(LIGHT_SENSOR_PIN);
 
   Serial.print("Analog Value = ");
-  Serial.print(analogValue);  // the raw analog reading
+  Serial.print(analogValue);
 
-  if (analogValue < 1000) {
+  if (Serial.available() > 0) {
+    String command = Serial.readStringUntil('\n');
+    command.trim();
 
-    blink_1();
-    blink_1();
-    delay(del);
-    blink_2();
-    blink_2();
-    delay(del);
-
-    blink_3();
-    blink_3();
-    delay(del);
-
-    blink_4();
-    blink_4();
-    delay(del);
-
-    blink_5();
-    blink_5();
-    delay(del);
-
-
-    blink_6();
-    blink_6();
-
-    delay(del);
-
-    blink_7();
-    blink_7();
-    delay(del);
-
-    blink_8();
-    blink_8();
-    delay(del);
-
-    blink_9();
-    blink_9();
-    delay(del);
-
-    blink_10();
-    blink_10();
-    delay(del);
-
-    blink_11();
-    blink_11();
-    delay(del);
-
-    blink_12();
-    blink_12();
-    delay(del);
-
-    blink_13();
-    blink_13();
-    delay(del);
-
-    blink_14();
-    blink_14();
-    delay(del);
-
-    blink_15();
-    blink_15();
-    delay(del);
-
-    blink_16();
-    blink_16();
-    delay(del);
+    if (command == "auto") {
+      if (analogValue < 1000) {
+        ledsAuto();
+       
+      }
+    } else if (command == "onLedsRobo") {
+      ledsAuto();
+    }
   }
+}
+
+
+void ledsAuto(){
+        blink_1();
+        blink_1();
+        delay(del);
+        blink_2();
+        blink_2();
+        delay(del);
+
+        blink_3();
+        blink_3();
+        delay(del);
+
+        blink_4();
+        blink_4();
+        delay(del);
+
+        blink_5();
+        blink_5();
+        delay(del);
+
+
+        blink_6();
+        blink_6();
+
+        delay(del);
+
+        blink_7();
+        blink_7();
+        delay(del);
+
+        blink_8();
+        blink_8();
+        delay(del);
+
+        blink_9();
+        blink_9();
+        delay(del);
+
+        blink_10();
+        blink_10();
+        delay(del);
+
+        blink_11();
+        blink_11();
+        delay(del);
+
+        blink_12();
+        blink_12();
+        delay(del);
+
+        blink_13();
+        blink_13();
+        delay(del);
+
+        blink_14();
+        blink_14();
+        delay(del);
+
+        blink_15();
+        blink_15();
+        delay(del);
+
+        blink_16();
+        blink_16();
+        delay(del);
 }
 
 /////////////pattern 1///////////////////////////////////////////////////////////////////////////////////////////////////
