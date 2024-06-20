@@ -7,9 +7,9 @@ import (
 	"github.com/wendellast/Roberto/config"
 )
 
-func ShowControlHome(c *gin.Context) {
+func AutoLedsRoberto(c *gin.Context) {
 	action := c.Query("action")
-	if action == "on" || action == "off" {
+	if action == "auto" || action == "onLedsRobo" {
 		err := config.WriteToPorts(action + "\n")
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Falha ao escrever na porta serial"})
