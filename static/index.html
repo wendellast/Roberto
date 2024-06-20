@@ -3,7 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controlar LED</title>
+    <title>Roberto | DASHBOARD</title>
+    
+</head>
+<body>
+    <h1>Roberto DASHBOARD</h1>
+    <h2>Ligar led Olhos</h2>
+    <button onclick="sendRequest('on')">Ligar LED olhos</button>
+    <button onclick="sendRequest('off')">Desligar LED olhos</button>
+
+    <h2>Leds pc</h2>
+    <ul>
+        <li><button>Modo automatico</button></li>
+        <li><button>Ligar leds Reberto</button></li>
+        <li><button>Desliga leds Roberto</button></li>
+    </ul>
+
+    <h2>Fan - Sugar</h2>
+    <ul>
+        <li><button>Ligar fan</button></li>
+        <li><button>Desliga Fan</button></li>
+        
+    </ul>
+
+    <h2>Tocar musica</h2>
+    
+    
+
     <script>
         function sendRequest(action) {
             fetch(`/api/v1/control?action=${action}`)
@@ -12,10 +38,5 @@
                 .catch(error => console.error('Error:', error));
         }
     </script>
-</head>
-<body>
-    <h1>Controlar LED</h1>
-    <button onclick="sendRequest('on')">Ligar LED</button>
-    <button onclick="sendRequest('off')">Desligar LED</button>
 </body>
 </html>
