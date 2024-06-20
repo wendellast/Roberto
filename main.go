@@ -17,5 +17,13 @@ func main() {
 	}
 
 	router.Initializer()
-	defer config.Port.Close()
+
+	defer func() {
+		if config.PortCOM3 != nil {
+			config.PortCOM3.Close()
+		}
+		if config.PortCOM4 != nil {
+			config.PortCOM4.Close()
+		}
+	}()
 }
