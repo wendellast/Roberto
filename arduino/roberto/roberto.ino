@@ -42,6 +42,7 @@ byte smiley[8] = {
 
 void setup()
 {
+  
   lcd.begin(16, 2);
   dht.begin();
   lcd.createChar(0, smiley);
@@ -52,11 +53,17 @@ void setup()
   pinMode(buzzerPin, OUTPUT);
   pinMode(botaoPin, INPUT);
   Serial.begin(115200);
-  xz = random(1, 5);
+
+  pinMode(A3, OUTPUT);
+  pinMode(A4, OUTPUT);
+
 }
 
 void loop()
 {
+  digitalWrite(A3, HIGH);
+  digitalWrite(A4, HIGH);
+  xz = random(1, 5);
  
 
   if (Serial.available() > 0) {
@@ -422,14 +429,14 @@ void beep2(int note, int duration)
   //Play different LED depending on value of 'counter'
   if(counters % 2 == 0)
   {
-    digitalWrite(ledPin1, HIGH);
+    digitalWrite(A3, HIGH);
     delay(duration);
-    digitalWrite(ledPin1, LOW);
+    digitalWrite(A3, LOW);
   }else
   {
-    digitalWrite(ledPin2, HIGH);
+    digitalWrite(A4, HIGH);
     delay(duration);
-    digitalWrite(ledPin2, LOW);
+    digitalWrite(A4, LOW);
   }
  
   //Stop tone on buzzerPin

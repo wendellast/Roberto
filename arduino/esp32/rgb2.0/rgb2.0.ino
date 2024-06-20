@@ -42,7 +42,6 @@ void loop() {
 
   Serial.print("Analog Value = ");
   Serial.print(analogValue);
-
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');
     command.trim();
@@ -56,6 +55,7 @@ void loop() {
       ledsAuto();
     }
   }
+  ledsAuto();
 }
 
 
