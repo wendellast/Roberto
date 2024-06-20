@@ -12,7 +12,8 @@ func InitializerRoutes(router *gin.Engine) {
 	v1 := router.Group(basePathApi)
 	{
 		v1.GET("/", handler.ShowIndexHandler)
-		v1.GET("/control", handler.ShowControlHome)
+		v1.GET("/controlLedsEye", handler.ControlLedsEye)
+		v1.GET("/controlLedsAuto", handler.AutoLedsRoberto)
 	}
 
 }
