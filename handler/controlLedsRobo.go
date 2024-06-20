@@ -7,7 +7,7 @@ import (
 	"github.com/wendellast/Roberto/config"
 )
 
-func AutoLedsRoberto(c *gin.Context) {
+func ControlLedsRobo(c *gin.Context) {
 	action := c.Query("action")
 	if action == "auto" || action == "onLedsRobo" {
 		err := config.WriteToPorts(action + "\n")
