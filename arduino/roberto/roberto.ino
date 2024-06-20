@@ -18,9 +18,17 @@ int frequencia = 0;
 int temp = 250;
 
 int xz = 0;
-int buzzerPin = 9;
-int speakPin = 9;
+const int buzzerPin = 9;
+
 int botaoPin = 8;
+
+
+const int ledPin1 = 13;
+const int ledPin2 = 13;
+ 
+int counters = 0;
+
+
 
 byte smiley[8] = {
     B00000,
@@ -38,16 +46,46 @@ void setup()
   dht.begin();
   lcd.createChar(0, smiley);
 
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+
   pinMode(buzzerPin, OUTPUT);
   pinMode(botaoPin, INPUT);
+  Serial.begin(115200);
+  xz = random(1, 5);
 }
 
 void loop()
 {
+ 
+
+  if (Serial.available() > 0) {
+    String command = Serial.readStringUntil('\n'); 
+    command.trim(); 
+    
+    if (command == "randomMusic") {
+      music(xz);
+    } else if (command == "oneMusic") {
+      xz = 1; // barulho
+      music(xz);
+    } else if (command == "twoMusic"){
+      xz = 2; // sirene
+      music(xz);
+    } else if (command == "threMusic"){
+      xz = 3; //
+      music(xz);
+    } else if (command == "fourMusic"){
+      xz = 4;
+      music(xz);}
+  }
+
+
+
+
   if (digitalRead(botaoPin) == HIGH)
   {
 
-    music();
+    music(xz);
   }
 
   int hours = hour();
@@ -93,19 +131,7 @@ void loop()
   delay(500); 
 }
 
-void beep(int note, int duration)
-{
-  
-  tone(buzzerPin, note, duration);
 
-  
-  noTone(buzzerPin);
-
-  delay(50);
-
-  
-  counter++;
-}
 
 void beep(int speakerPin, float noteFrequency, long noteDuration)
 {
@@ -124,10 +150,11 @@ void beep(int speakerPin, float noteFrequency, long noteDuration)
   }
 }
 
-void music()
+
+
+void music(int xz)
 {
 
-  xz = random(1, 5);
   Serial.println(xz);
 
   if (xz == 1)
@@ -168,327 +195,360 @@ void music()
 
   else if (xz == 3)
   {
-    tone(speakPin, f5s);
+    tone(buzzerPin, f5s);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Hnote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(12.5);
 
-    tone(speakPin, e5);
+    tone(buzzerPin, e5);
     delay(Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, f5);
+    tone(buzzerPin, f5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, e5);
+    tone(buzzerPin, e5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, c5s);
+    tone(buzzerPin, c5s);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, e5);
+    tone(buzzerPin, e5);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, f5s);
+    tone(buzzerPin, f5s);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, b5);
+    tone(buzzerPin, b5);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, b4);
+    tone(buzzerPin, b4);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, c5s);
+    tone(buzzerPin, c5s);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, e5);
+    tone(buzzerPin, e5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d5);
+    tone(buzzerPin, d5);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, c5s);
+    tone(buzzerPin, c5s);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, a5);
+    tone(buzzerPin, a5);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, g5);
+    tone(buzzerPin, g5);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, f6s);
+    tone(buzzerPin, f6s);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, d6);
+    tone(buzzerPin, d6);
     delay(Hnote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, d6);
+    tone(buzzerPin, d6);
     delay(Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(12.5);
 
-    tone(speakPin, e6);
+    tone(buzzerPin, e6);
     delay(Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, f6);
+    tone(buzzerPin, f6);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, e6);
+    tone(buzzerPin, e6);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d6);
+    tone(buzzerPin, d6);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, c6s);
+    tone(buzzerPin, c6s);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d6);
+    tone(buzzerPin, d6);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, e6);
+    tone(buzzerPin, e6);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, f6s);
+    tone(buzzerPin, f6s);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, b6);
+    tone(buzzerPin, b6);
     delay(Qnote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, b6);
+    tone(buzzerPin, b6);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, c7s);
+    tone(buzzerPin, c7s);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d7);
+    tone(buzzerPin, d7);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, g6);
+    tone(buzzerPin, g6);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, f6s);
+    tone(buzzerPin, f6s);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(50);
 
-    tone(speakPin, f6);
+    tone(buzzerPin, f6);
     delay(Snote + Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, d7);
+    tone(buzzerPin, d7);
     delay(Enote + Snote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, a6s);
+    tone(buzzerPin, a6s);
     delay(Enote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
 
-    tone(speakPin, b6);
+    tone(buzzerPin, b6);
     delay(Qnote);
-    noTone(speakPin);
+    noTone(buzzerPin);
     delay(25);
   }
 
   else if (xz == 4)
   { // Music Mortal kobat
-    firstSection();
-    firstSection();
-    secondSection();
-    thirdSection();
-    thirdSection();
+    
+  firstSection();
+  firstSection();
+  secondSection();
+  thirdSection();
+  thirdSection();
   }
 }
 
+
+void beep2(int note, int duration)
+{
+  //Play tone on buzzerPin
+  tone(buzzerPin, note, duration);
+ 
+ 
+  //Play different LED depending on value of 'counter'
+  if(counters % 2 == 0)
+  {
+    digitalWrite(ledPin1, HIGH);
+    delay(duration);
+    digitalWrite(ledPin1, LOW);
+  }else
+  {
+    digitalWrite(ledPin2, HIGH);
+    delay(duration);
+    digitalWrite(ledPin2, LOW);
+  }
+ 
+  //Stop tone on buzzerPin
+  noTone(buzzerPin);
+ 
+  delay(50);
+ 
+  //Increment counter
+  counters++;
+}
+
+
+ 
 void firstSection()
 {
-  beep(AA3, 200);
-  beep(AA3, 200);
-  beep(C4, 200);
-  beep(AA3, 200);
-  beep(D4, 200);
-  beep(AA3, 200);
-  beep(E4, 200);
-  beep(D4, 200);
-  beep(C4, 200);
-  beep(C4, 200);
-  beep(E4, 200);
-  beep(C4, 200);
-  beep(G4, 200);
-  beep(C4, 200);
-  beep(E4, 200);
-  beep(C4, 200);
-  beep(G3, 200);
-  beep(G3, 200);
-  beep(B3, 200);
-  beep(G3, 200);
-  beep(C4, 200);
-  beep(G3, 200);
-  beep(D4, 200);
-  beep(C4, 200);
-  beep(F3, 200);
-  beep(F3, 200);
-  beep(AA3, 200);
-  beep(F3, 200);
-  beep(C4, 200);
-  beep(F3, 200);
-  beep(C4, 200);
-  beep(B3, 200);
+  beep2(AA3, 200);
+  beep2(AA3, 200);
+  beep2(C4, 200);
+  beep2(AA3, 200);
+  beep2(D4, 200);
+  beep2(AA3, 200);
+  beep2(E4, 200);
+  beep2(D4, 200);
+  beep2(C4, 200);
+  beep2(C4, 200);
+  beep2(E4, 200);
+  beep2(C4, 200);
+  beep2(G4, 200);
+  beep2(C4, 200);
+  beep2(E4, 200);
+  beep2(C4, 200);
+  beep2(G3, 200);
+  beep2(G3, 200);
+  beep2(B3, 200);
+  beep2(G3, 200);
+  beep2(C4, 200);
+  beep2(G3, 200);
+  beep2(D4, 200);
+  beep2(C4, 200);
+  beep2(F3, 200);
+  beep2(F3, 200);
+  beep2(AA3, 200);
+  beep2(F3, 200);
+  beep2(C4, 200);
+  beep2(F3, 200);
+  beep2(C4, 200);
+  beep2(B3, 200);
+  
 }
 void secondSection()
 {
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(G3, 200);
-  beep(C4, 200);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(G3, 200);
-  beep(E3, 200);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(G3, 200);
-  beep(C4, 200);
-  beep(AA3, 325);
-  beep(AA3, 325);
-  beep(AA3, 200);
-  beep(AA3, 75);
-  beep(AA3, 325);
-  beep(AA3, 450);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(G3, 200);
+  beep2(C4, 200);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(G3, 200);
+  beep2(E3, 200);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(G3, 200);
+  beep2(C4, 200);
+  beep2(AA3, 325);
+  beep2(AA3, 325);
+  beep2(AA3, 200);
+  beep2(AA3, 75);
+  beep2(AA3, 325);
+  beep2(AA3, 450);
 }
 
 void thirdSection()
 {
-  beep(AA3, 75);
-  beep(E4, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 75);
-  beep(G3, 200);
-  beep(AA3, 75);
-  beep(E4, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 75);
-  beep(G3, 200);
-  beep(AA3, 75);
-  beep(E4, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(AA3, 75);
-  beep(Bb3, 75);
-  beep(G3, 200);
-  beep(AA3, 75);
-  beep(E4, 200);
-  beep(AA3, 75);
-  beep(C4, 200);
-  beep(G3, 75);
-  beep(G3, 200);
-  beep(G3, 75);
-  beep(AA3, 200);
-  beep(AA3, 450);
+  beep2(AA3, 75);
+  beep2(E4, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 75);
+  beep2(G3, 200);
+  beep2(AA3, 75);
+  beep2(E4, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 75);
+  beep2(G3, 200);
+  beep2(AA3, 75);
+  beep2(E4, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(AA3, 75);
+  beep2(Bb3, 75);
+  beep2(G3, 200);
+  beep2(AA3, 75);
+  beep2(E4, 200);
+  beep2(AA3, 75);
+  beep2(C4, 200);
+  beep2(G3, 75);
+  beep2(G3, 200);
+  beep2(G3, 75);
+  beep2(AA3, 200);
+  beep2(AA3, 450);
 }
