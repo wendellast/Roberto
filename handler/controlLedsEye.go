@@ -9,7 +9,7 @@ import (
 
 func ControlLedsEye(c *gin.Context) {
 	action := c.Query("action")
-	if action == "onLedsEye" || action == "offLedsEye" {
+	if action == "onEye" || action == "offEye" {
 		err := config.WriteToPorts(action + "\n")
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Falha ao escrever na porta serial"})

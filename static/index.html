@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+    <title>Controlar LED</title>
+</head>
+<body>
+    <h1>Roberto</h1>
+    
+    <button onclick="sendRequest('on')">Ligar LED</button>
+    <button onclick="sendRequest('off')">Desligar LED</button>
+=======
     <title>Roberto | DASHBOARD</title>
     
 </head>
@@ -35,6 +44,7 @@
     
     
 
+>>>>>>> d91ef42ba2d996a64cad295f2ad59fc5157ce4d0
     <script>
         function sendRequest(action, apiRoute) {
             fetch(`/api/v1/${apiRoute}?action=${action}`)

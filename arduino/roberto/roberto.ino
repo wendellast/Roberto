@@ -84,7 +84,17 @@ void loop()
     } else if (command == "fourMusic"){
       xz = 4;
       music(xz);}
+
+    if (command == "onEye"){
+        digitalWrite(A3, HIGH);
+        digitalWrite(A4, HIGH);
+    } else if (command == "offEye"){
+       digitalWrite(A3, LOW);
+        digitalWrite(A4, LOW);
+    }
   }
+
+  
 
 
 

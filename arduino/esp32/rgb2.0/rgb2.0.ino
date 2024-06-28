@@ -55,7 +55,10 @@ void loop() {
       ledsAuto();
     }
   }
-  ledsAuto();
+   if (analogValue < 1000) {
+        ledsAuto();
+       
+      }
 }
 
 
